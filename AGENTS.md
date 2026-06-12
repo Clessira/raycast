@@ -2,12 +2,12 @@
 
 ## Purpose
 
-Repository-wide instructions for coding agents working on the NowDoing Raycast
+Repository-wide instructions for coding agents working on the Clessira Raycast
 extension. Actionable: how to work, what to run, and what to keep in sync.
 
 ## Repository Context
 
-- This repository is a Raycast extension for NowDoing.
+- This repository is a Raycast extension for Clessira.
 - Each command's entrypoint is `src/<command-name>.tsx`, matching the `name`
   field in `package.json`'s `commands` array.
 - Shared logic lives under `src/lib/` (API client, auth, types, formatting).
@@ -15,7 +15,7 @@ extension. Actionable: how to work, what to run, and what to keep in sync.
 
 ## The wire protocol is shared — do not drift
 
-This extension is a **consumer** of NowDoing's loopback API (`BranchChangeServer`
+This extension is a **consumer** of Clessira's loopback API (`BranchChangeServer`
 in the Mac app). The HMAC canonical string, header names, capability-file format,
 and request/response shapes are also implemented in the Swift app, the VS Code
 extension, and the `@clessira/sdk` JS/Python SDKs.

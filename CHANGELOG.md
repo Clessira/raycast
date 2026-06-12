@@ -1,4 +1,4 @@
-# NowDoing Changelog
+# Clessira Changelog
 
 ## [Initial Version] - 2026-06-12
 

@@ -1,18 +1,18 @@
 <p align="center">
-  <img src="assets/icon.png" width="128" alt="NowDoing icon" />
+  <img src="assets/icon.png" width="128" alt="Clessira icon" />
 </p>
 
-<h1 align="center">NowDoing for Raycast</h1>
+<h1 align="center">Clessira for Raycast</h1>
 
 <p align="center">
-  <a href="https://nowdoing.app"><img alt="Website" src="https://img.shields.io/badge/website-nowdoing.app-1F1F23" /></a>
+  <a href="https://clessira.app"><img alt="Website" src="https://img.shields.io/badge/website-clessira.app-1F1F23" /></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
 </p>
 
-Start, stop, and log time in the [NowDoing](https://nowdoing.app) macOS app
+Start, stop, and log time in the [Clessira](https://clessira.app) macOS app
 straight from Raycast — no need to open the menu bar popover.
 
-Requires the NowDoing macOS app. The extension talks to a Unix-domain socket
+Requires the Clessira macOS app. The extension talks to a Unix-domain socket
 inside the app's sandbox container and never sends data over the network.
 
 ## Commands
@@ -27,11 +27,11 @@ inside the app's sandbox container and never sends data over the network.
 
 ## How it works
 
-NowDoing exposes an HMAC-signed loopback API (`BranchChangeServer`). When the
+Clessira exposes an HMAC-signed loopback API (`BranchChangeServer`). When the
 integration is enabled, the Mac app writes a capability file to:
 
 ```
-~/Library/Containers/com.mattes.nowdoing/Data/api-endpoint.json
+~/Library/Containers/com.mattes.clessira/Data/api-endpoint.json
 ```
 
 The extension reads the Unix-domain socket path and shared token from that file
@@ -49,10 +49,10 @@ canonical and type shapes instead.
 
 ## Requirements
 
-- macOS with the NowDoing app installed and unlocked.
-- The loopback API integration enabled in NowDoing (Settings → HTTP-API).
+- macOS with the Clessira app installed and unlocked.
+- The loopback API integration enabled in Clessira (Settings → HTTP-API).
 
-If NowDoing is not reachable, each command shows a hint to open the app and
+If Clessira is not reachable, each command shows a hint to open the app and
 enable the integration.
 
 ## Development

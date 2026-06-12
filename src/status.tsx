@@ -2,7 +2,7 @@ import { Action, ActionPanel, Color, Icon, List, showToast, Toast } from "@rayca
 import { usePromise } from "@raycast/utils";
 
 import { getCurrent, getStatus, stopTracking } from "./lib/client";
-import { NowDoingUnreachableError } from "./lib/errors";
+import { ClessiraUnreachableError } from "./lib/errors";
 import { reportError } from "./lib/feedback";
 import { elapsedSince, formatElapsed, formatSeconds } from "./lib/format";
 
@@ -12,13 +12,13 @@ export default function Command() {
     return { status, current };
   });
 
-  if (error instanceof NowDoingUnreachableError) {
+  if (error instanceof ClessiraUnreachableError) {
     return (
       <List isLoading={isLoading}>
         <List.EmptyView
           icon={Icon.WifiDisabled}
-          title="NowDoing not reachable"
-          description="Open the NowDoing app and enable the loopback API integration."
+          title="Clessira not reachable"
+          description="Open the Clessira app and enable the loopback API integration."
         />
       </List>
     );

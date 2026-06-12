@@ -1,8 +1,8 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
-  "name": "nowdoing",
-  "title": "NowDoing",
-  "description": "Start, stop, and log time in the NowDoing macOS app from Raycast — start activities, stop tracking, log entries, and check today's status without opening the menu bar popover.",
+  "name": "clessira",
+  "title": "Clessira",
+  "description": "Start, stop, and log time in the Clessira macOS app from Raycast — start activities, stop tracking, log entries, and check today's status without opening the menu bar popover.",
   "icon": "icon.png",
   "author": "nowdoing",
   "categories": ["Productivity"],
@@ -11,29 +11,29 @@
     {
       "name": "start-activity",
       "title": "Start Activity",
-      "subtitle": "NowDoing",
-      "description": "Search NowDoing activities and start tracking one (create-if-missing supported).",
+      "subtitle": "Clessira",
+      "description": "Search Clessira activities and start tracking one (create-if-missing supported).",
       "mode": "view"
     },
     {
       "name": "stop-tracking",
       "title": "Stop Tracking",
-      "subtitle": "NowDoing",
-      "description": "Stop the currently tracked NowDoing activity.",
+      "subtitle": "Clessira",
+      "description": "Stop the currently tracked Clessira activity.",
       "mode": "no-view"
     },
     {
       "name": "log-entry",
       "title": "Log Entry",
-      "subtitle": "NowDoing",
-      "description": "Log a fixed-duration time entry against a NowDoing activity.",
+      "subtitle": "Clessira",
+      "description": "Log a fixed-duration time entry against a Clessira activity.",
       "mode": "view"
     },
     {
       "name": "status",
       "title": "Status / Today",
-      "subtitle": "NowDoing",
-      "description": "Show the current NowDoing tracking state and today's total.",
+      "subtitle": "Clessira",
+      "description": "Show the current Clessira tracking state and today's total.",
       "mode": "view"
     }
   ],

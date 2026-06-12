@@ -3,7 +3,7 @@ import { usePromise } from "@raycast/utils";
 import { useState } from "react";
 
 import { searchActivities, startActivity } from "./lib/client";
-import { NowDoingUnreachableError } from "./lib/errors";
+import { ClessiraUnreachableError } from "./lib/errors";
 import { reportError } from "./lib/feedback";
 import type { StartActivityRequest } from "./lib/types";
 
@@ -34,7 +34,7 @@ export default function Command() {
     }
   }
 
-  const unreachable = error instanceof NowDoingUnreachableError;
+  const unreachable = error instanceof ClessiraUnreachableError;
 
   return (
     <List
@@ -46,8 +46,8 @@ export default function Command() {
       {unreachable ? (
         <List.EmptyView
           icon={Icon.WifiDisabled}
-          title="NowDoing not reachable"
-          description="Open the NowDoing app and enable the loopback API integration."
+          title="Clessira not reachable"
+          description="Open the Clessira app and enable the loopback API integration."
         />
       ) : error ? (
         <List.EmptyView

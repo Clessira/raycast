@@ -2,7 +2,7 @@ import * as http from "node:http";
 
 import { buildAuthHeaders } from "./auth";
 import { readCapability } from "./capability";
-import { mapHttpError, NowDoingError, NowDoingUnreachableError } from "./errors";
+import { mapHttpError, ClessiraError, ClessiraUnreachableError } from "./errors";
 import type {
   ActivitySearchItem,
   CurrentActivity,
@@ -31,7 +31,7 @@ interface SearchResponse {
 }
 
 /**
- * Performs a single signed request against the NowDoing loopback API over the
+ * Performs a single signed request against the Clessira loopback API over the
  * Unix-domain socket discovered via the capability file. `target` is the full
  * request target (path + query) and is signed verbatim, so it must equal the
  * string sent on the request line.
@@ -78,7 +78,7 @@ async function request(
           chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)),
         );
         res.on("error", (err) =>
-          reject(new NowDoingUnreachableError(err.message, { cause: err })),
+          reject(new ClessiraUnreachableError(err.message, { cause: err })),
         );
         res.on("end", () =>
           resolve({
@@ -90,10 +90,10 @@ async function request(
     );
 
     req.on("error", (err) =>
-      reject(new NowDoingUnreachableError(err.message, { cause: err })),
+      reject(new ClessiraUnreachableError(err.message, { cause: err })),
     );
     req.on("timeout", () => {
-      req.destroy(new NowDoingUnreachableError("Request to NowDoing timed out."));
+      req.destroy(new ClessiraUnreachableError("Request to Clessira timed out."));
     });
 
     if (payload) {
@@ -160,7 +160,7 @@ export async function startActivity(
   body: StartActivityRequest,
 ): Promise<StartActivityResult> {
   if (!body.activityID && !body.name) {
-    throw new NowDoingError("startActivity: provide either activityID or name.");
+    throw new ClessiraError("startActivity: provide either activityID or name.");
   }
   const data = await requestJson<Envelope<StartActivityResult>>(
     "POST",
@@ -172,7 +172,7 @@ export async function startActivity(
     },
   );
   if (!data.result) {
-    throw new NowDoingError("startActivity: missing result in response.");
+    throw new ClessiraError("startActivity: missing result in response.");
   }
   return data.result;
 }
@@ -184,10 +184,10 @@ export async function stopTracking(): Promise<void> {
 
 export async function logEntry(body: LogEntryRequest): Promise<LogEntryResult> {
   if (!body.activityID && !body.name) {
-    throw new NowDoingError("logEntry: provide either activityID or name.");
+    throw new ClessiraError("logEntry: provide either activityID or name.");
   }
   if (!Number.isInteger(body.durationMinutes) || body.durationMinutes <= 0) {
-    throw new NowDoingError("logEntry: durationMinutes must be a positive integer.");
+    throw new ClessiraError("logEntry: durationMinutes must be a positive integer.");
   }
   const data = await requestJson<Envelope<LogEntryResult>>("POST", "/entries", {
     activityID: body.activityID,
@@ -197,7 +197,7 @@ export async function logEntry(body: LogEntryRequest): Promise<LogEntryResult> {
     createIfMissing: body.createIfMissing ?? false,
   });
   if (!data.result) {
-    throw new NowDoingError("logEntry: missing result in response.");
+    throw new ClessiraError("logEntry: missing result in response.");
   }
   return data.result;
 }
@@ -205,7 +205,7 @@ export async function logEntry(body: LogEntryRequest): Promise<LogEntryResult> {
 export async function getStatus(): Promise<Status> {
   const data = await requestJson<Envelope<Status>>("GET", "/status");
   if (!data.result) {
-    throw new NowDoingError("getStatus: missing result in response.");
+    throw new ClessiraError("getStatus: missing result in response.");
   }
   return data.result;
 }

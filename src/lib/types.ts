@@ -1,4 +1,4 @@
-// Wire types of the NowDoing loopback API. Mirrors `@clessira/sdk` (js) and the
+// Wire types of the Clessira loopback API. Mirrors `@clessira/sdk` (js) and the
 // Swift `BranchChangeServer+WireTypes` so all clients stay in lockstep. This is
 // a consumer of the existing v1 contract — no wire-protocol change.
 

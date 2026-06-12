@@ -11,7 +11,7 @@ import { usePromise } from "@raycast/utils";
 import { useState } from "react";
 
 import { logEntry, searchActivities } from "./lib/client";
-import { NowDoingUnreachableError } from "./lib/errors";
+import { ClessiraUnreachableError } from "./lib/errors";
 import { reportError } from "./lib/feedback";
 
 interface Target {
@@ -35,7 +35,7 @@ export default function Command() {
     (item) => item.name.localeCompare(trimmed, undefined, { sensitivity: "accent" }) === 0,
   );
   const showCreate = trimmed.length > 0 && !hasExactMatch;
-  const unreachable = error instanceof NowDoingUnreachableError;
+  const unreachable = error instanceof ClessiraUnreachableError;
 
   return (
     <List
@@ -47,8 +47,8 @@ export default function Command() {
       {unreachable ? (
         <List.EmptyView
           icon={Icon.WifiDisabled}
-          title="NowDoing not reachable"
-          description="Open the NowDoing app and enable the loopback API integration."
+          title="Clessira not reachable"
+          description="Open the Clessira app and enable the loopback API integration."
         />
       ) : error ? (
         <List.EmptyView icon={Icon.Warning} title="Search failed" description={error.message} />

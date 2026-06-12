@@ -1,7 +1,7 @@
 import { createHash, createHmac, randomBytes } from "node:crypto";
 
 /**
- * HMAC request signing for the NowDoing loopback API. Kept byte-for-byte
+ * HMAC request signing for the Clessira loopback API. Kept byte-for-byte
  * compatible with the Mac app (`BranchChangeServer.requestSignature`), the VS
  * Code extension, and the JS/Python SDKs — the canonical string is
  * `method\ntarget\ntimestamp\nnonce\nsha256(body)` signed with HMAC-SHA256
