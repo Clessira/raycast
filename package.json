@@ -1,0 +1,59 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "nowdoing",
+  "title": "NowDoing",
+  "description": "Start, stop, and log time in the NowDoing macOS app from Raycast — start activities, stop tracking, log entries, and check today's status without opening the menu bar popover.",
+  "icon": "icon.png",
+  "author": "nowdoing",
+  "categories": ["Productivity"],
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "start-activity",
+      "title": "Start Activity",
+      "subtitle": "NowDoing",
+      "description": "Search NowDoing activities and start tracking one (create-if-missing supported).",
+      "mode": "view"
+    },
+    {
+      "name": "stop-tracking",
+      "title": "Stop Tracking",
+      "subtitle": "NowDoing",
+      "description": "Stop the currently tracked NowDoing activity.",
+      "mode": "no-view"
+    },
+    {
+      "name": "log-entry",
+      "title": "Log Entry",
+      "subtitle": "NowDoing",
+      "description": "Log a fixed-duration time entry against a NowDoing activity.",
+      "mode": "view"
+    },
+    {
+      "name": "status",
+      "title": "Status / Today",
+      "subtitle": "NowDoing",
+      "description": "Show the current NowDoing tracking state and today's total.",
+      "mode": "view"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.80.0",
+    "@raycast/utils": "^1.18.0"
+  },
+  "devDependencies": {
+    "@raycast/eslint-config": "^1.0.11",
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.3.3",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.4.5"
+  },
+  "scripts": {
+    "build": "ray build",
+    "dev": "ray develop",
+    "lint": "ray lint",
+    "fix-lint": "ray lint --fix",
+    "publish": "npx @raycast/api@latest publish"
+  }
+}
