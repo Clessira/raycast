@@ -36,10 +36,22 @@ jobs:
           npm run format:check
           npm test
 
-      - name: Extract release notes from CHANGELOG
+      - name: Build source bundle for manual installation
         run: |
-          # Body of the top-most "## …" section, heading line stripped.
+          # Raycast has no .vsix-style installer: a local extension is a source
+          # folder it compiles on the user's machine. Ship a clean source archive
+          # of the tagged commit (git archive omits untracked node_modules/dist).
+          ZIP="clessira-raycast-${GITHUB_REF_NAME}.zip"
+          git archive --format=zip --prefix="clessira-raycast/" -o "$ZIP" HEAD
+          echo "ZIP=$ZIP" >> "$GITHUB_ENV"
+          ls -la "$ZIP"
+
+      - name: Assemble release notes
+        run: |
+          # Body of the top-most "## …" CHANGELOG section (heading stripped) plus a
+          # static "how to install this build" footer that documents the zip asset.
           awk '/^## /{n++} n==1{print} n==2{exit}' CHANGELOG.md | sed '1d' > RELEASE_NOTES.md
+          cat .github/RELEASE_FOOTER.md >> RELEASE_NOTES.md
           echo "----- release notes -----"
           cat RELEASE_NOTES.md
 
@@ -47,7 +59,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create "${GITHUB_REF_NAME}" \
+          gh release create "${GITHUB_REF_NAME}" "${ZIP}" \
             --title "${GITHUB_REF_NAME}" \
             --notes-file RELEASE_NOTES.md \
             --verify-tag

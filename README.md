@@ -55,6 +55,24 @@ canonical and type shapes instead.
 If Clessira is not reachable, each command shows a hint to open the app and
 enable the integration.
 
+## Manual installation (without the Raycast Store)
+
+Raycast has no single-file installer — there is no `.vsix`-style artifact. A
+local extension is a **source folder** that Raycast compiles on your machine.
+
+1. Download `clessira-raycast-<version>.zip` from the
+   [latest release](https://github.com/Clessira/raycast/releases/latest) and
+   unzip it.
+2. In the folder, install dependencies: `npm install`.
+3. Load it into Raycast:
+   - `npm run dev` — builds and adds it to the top of the root search (hot
+     reload while running), **or**
+   - `npm run build`, then run Raycast's **Import Extension** command and pick
+     the folder.
+
+Locally-installed extensions are managed by you and do not auto-update from the
+Store.
+
 ## Development
 
 ```sh
