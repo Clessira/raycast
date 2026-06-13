@@ -45,12 +45,7 @@ async function request(
 
   const payload =
     body === undefined ? undefined : Buffer.from(JSON.stringify(body), "utf8");
-  const auth = buildAuthHeaders(
-    method,
-    target,
-    payload ?? new Uint8Array(),
-    cap.token,
-  );
+  const auth = buildAuthHeaders(method, target, payload ?? new Uint8Array(), cap.token);
 
   return new Promise<RawResponse>((resolve, reject) => {
     const req = http.request(
@@ -149,10 +144,7 @@ export async function searchActivities(
   query: string,
   limit: number = DEFAULT_SEARCH_LIMIT,
 ): Promise<ActivitySearchItem[]> {
-  const data = await requestJson<SearchResponse>(
-    "GET",
-    buildSearchTarget(query, limit),
-  );
+  const data = await requestJson<SearchResponse>("GET", buildSearchTarget(query, limit));
   return data.items ?? [];
 }
 

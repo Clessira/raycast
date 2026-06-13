@@ -39,9 +39,7 @@ export function sha256Hex(data: Uint8Array): string {
 export function signRequest(params: SignRequestParams): string {
   const { token, method, target, timestamp, nonce, body } = params;
   const bodyHash = sha256Hex(body);
-  const canonical = [method.toUpperCase(), target, timestamp, nonce, bodyHash].join(
-    "\n",
-  );
+  const canonical = [method.toUpperCase(), target, timestamp, nonce, bodyHash].join("\n");
   return createHmac("sha256", token).update(canonical).digest("hex");
 }
 

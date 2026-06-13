@@ -32,7 +32,8 @@ export default function Command() {
   const items = data ?? [];
   const trimmed = searchText.trim();
   const hasExactMatch = items.some(
-    (item) => item.name.localeCompare(trimmed, undefined, { sensitivity: "accent" }) === 0,
+    (item) =>
+      item.name.localeCompare(trimmed, undefined, { sensitivity: "accent" }) === 0,
   );
   const showCreate = trimmed.length > 0 && !hasExactMatch;
   const unreachable = error instanceof ClessiraUnreachableError;
@@ -51,7 +52,11 @@ export default function Command() {
           description="Open the Clessira app and enable the loopback API integration."
         />
       ) : error ? (
-        <List.EmptyView icon={Icon.Warning} title="Search failed" description={error.message} />
+        <List.EmptyView
+          icon={Icon.Warning}
+          title="Search failed"
+          description={error.message}
+        />
       ) : (
         <>
           {showCreate ? (

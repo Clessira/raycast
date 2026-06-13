@@ -17,7 +17,8 @@ export default function Command() {
   const items = data ?? [];
   const trimmed = searchText.trim();
   const hasExactMatch = items.some(
-    (item) => item.name.localeCompare(trimmed, undefined, { sensitivity: "accent" }) === 0,
+    (item) =>
+      item.name.localeCompare(trimmed, undefined, { sensitivity: "accent" }) === 0,
   );
   const showCreate = trimmed.length > 0 && !hasExactMatch;
 
