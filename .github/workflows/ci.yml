@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# Note: `ray lint` / `ray build` are intentionally NOT run here. They require
+# macOS with the Raycast app installed and hit Raycast's network author-validation
+# API, so they cannot run on a Linux CI host. The checks below (ESLint, Prettier,
+# Vitest) are the platform-independent slice of the same gate; `ray build` stays a
+# local/macOS step before a Raycast Store submission.
+jobs:
+  check:
+    name: Lint, format & test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: ESLint
+        run: npm run eslint
+
+      - name: Prettier
+        run: npm run format:check
+
+      - name: Tests (wire-protocol auth parity)
+        run: npm test

@@ -72,6 +72,27 @@ Source layout:
 - `src/*.tsx` — one file per command (`start-activity`, `stop-tracking`,
   `log-entry`, `status`).
 
+## Releasing
+
+CI (`.github/workflows/ci.yml`) runs ESLint, Prettier and the Vitest auth-parity
+suite on every push and PR to `main`. Releases are tag-driven and follow
+[semantic versioning](https://semver.org/):
+
+1. Bump `version` in `package.json`.
+2. Add a `## [x.y.z] - YYYY-MM-DD` section to the top of `CHANGELOG.md`.
+3. Tag and push:
+
+   ```sh
+   git tag v0.1.0
+   git push origin v0.1.0
+   ```
+
+`.github/workflows/release.yml` then re-runs the gate, turns the top CHANGELOG
+section into the release notes, and publishes the GitHub Release.
+
+> `ray build` / a Raycast Store submission is a separate, macOS-only step and
+> requires the extension's `author` to be a registered Raycast account handle.
+
 ## License
 
 [MIT](LICENSE) © Clessira

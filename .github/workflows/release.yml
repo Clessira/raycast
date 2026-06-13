@@ -1,0 +1,53 @@
+name: Release
+
+# Tag-driven releases. Cut a release by bumping `version` in package.json, adding
+# a matching `## [x.y.z] - YYYY-MM-DD` section to the top of CHANGELOG.md, then:
+#
+#   git tag v0.1.0 && git push origin v0.1.0
+#
+# This workflow re-runs the gate, extracts the top CHANGELOG section as the
+# release notes, and publishes a GitHub Release for the tag.
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Publish GitHub Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Gate (lint, format & test)
+        run: |
+          npm run eslint
+          npm run format:check
+          npm test
+
+      - name: Extract release notes from CHANGELOG
+        run: |
+          # Body of the top-most "## …" section, heading line stripped.
+          awk '/^## /{n++} n==1{print} n==2{exit}' CHANGELOG.md | sed '1d' > RELEASE_NOTES.md
+          echo "----- release notes -----"
+          cat RELEASE_NOTES.md
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            --title "${GITHUB_REF_NAME}" \
+            --notes-file RELEASE_NOTES.md \
+            --verify-tag
