@@ -31,7 +31,7 @@ Clessira exposes an HMAC-signed loopback API (`BranchChangeServer`). When the
 integration is enabled, the Mac app writes a capability file to:
 
 ```
-~/Library/Containers/com.mattes.clessira/Data/api-endpoint.json
+~/Library/Containers/com.mattes.nowdoing/Data/api-endpoint.json
 ```
 
 The extension reads the Unix-domain socket path and shared token from that file

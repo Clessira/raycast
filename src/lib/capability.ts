@@ -17,10 +17,11 @@ export interface APICapability {
 }
 
 export function capabilityFilePath(): string {
-  return join(
-    homedir(),
-    "Library/Containers/com.mattes.clessira/Data/api-endpoint.json",
-  );
+  // The Mac app's sandbox container is keyed by its bundle id, which is
+  // `com.mattes.nowdoing` — the product was rebranded to Clessira but the
+  // bundle id (and thus the container path) was intentionally left unchanged.
+  // Must match the VS Code extension and the app's `writeCapabilityFile`.
+  return join(homedir(), "Library/Containers/com.mattes.nowdoing/Data/api-endpoint.json");
 }
 
 /**
@@ -29,9 +30,7 @@ export function capabilityFilePath(): string {
  * version — callers should treat any such failure as "Clessira is not currently
  * reachable" and prompt the user to open the app / enable the integration.
  */
-export function readCapability(
-  filePath: string = capabilityFilePath(),
-): APICapability {
+export function readCapability(filePath: string = capabilityFilePath()): APICapability {
   let raw: string;
   try {
     raw = readFileSync(filePath, "utf8");

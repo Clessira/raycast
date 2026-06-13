@@ -1,11 +1,16 @@
 import { Toast, showToast } from "@raycast/api";
 import { showFailureToast } from "@raycast/utils";
 
-import { ClessiraLockedError, ClessiraUnreachableError } from "./errors";
+import {
+  ClessiraAuthError,
+  ClessiraLockedError,
+  ClessiraUnreachableError,
+} from "./errors";
 
 /**
- * Surfaces an error as a Raycast toast, with friendlier copy for the two cases
- * a user can actually act on: the app being unreachable, and the license gate.
+ * Surfaces an error as a Raycast toast, with friendlier copy for the three
+ * cases a user can actually act on: the app being unreachable, a stale auth
+ * token, and the license gate.
  */
 export async function reportError(error: unknown, fallbackTitle: string): Promise<void> {
   if (error instanceof ClessiraUnreachableError) {
@@ -13,6 +18,16 @@ export async function reportError(error: unknown, fallbackTitle: string): Promis
       style: Toast.Style.Failure,
       title: "Clessira not reachable",
       message: "Open Clessira and enable the loopback API integration.",
+    });
+    return;
+  }
+  if (error instanceof ClessiraAuthError) {
+    // 401 — the capability file's token no longer matches the running server
+    // (app restarted, token rotated, or the integration was toggled off/on).
+    await showToast({
+      style: Toast.Style.Failure,
+      title: "Clessira rejected the request",
+      message: "The connection token may have changed. Reopen Clessira, then try again.",
     });
     return;
   }

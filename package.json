@@ -4,8 +4,10 @@
   "title": "Clessira",
   "description": "Start, stop, and log time in the Clessira macOS app from Raycast — start activities, stop tracking, log entries, and check today's status without opening the menu bar popover.",
   "icon": "icon.png",
-  "author": "nowdoing",
-  "categories": ["Productivity"],
+  "author": "marcomattes",
+  "categories": [
+    "Productivity"
+  ],
   "license": "MIT",
   "commands": [
     {
@@ -47,13 +49,15 @@
     "@types/react": "^18.3.3",
     "eslint": "^8.57.0",
     "prettier": "^3.3.3",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vitest": "4.1.7"
   },
   "scripts": {
     "build": "ray build",
     "dev": "ray develop",
     "lint": "ray lint",
     "fix-lint": "ray lint --fix",
+    "test": "vitest run",
     "publish": "npx @raycast/api@latest publish"
   }
 }
