@@ -45,10 +45,10 @@
     "@raycast/utils": "^1.18.0"
   },
   "devDependencies": {
-    "@raycast/eslint-config": "^1.0.11",
+    "@raycast/eslint-config": "^2.1.1",
     "@types/node": "^20.11.0",
     "@types/react": "^18.3.3",
-    "eslint": "^8.57.0",
+    "eslint": "^10.5.0",
     "prettier": "3.8.4",
     "typescript": "^5.4.5",
     "vitest": "4.1.7"
